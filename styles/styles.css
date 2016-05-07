@@ -1,0 +1,63 @@
+html, body {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	font-family: 'Droid Sans Mono', sans-serif;
+}
+
+.input-wrapper {
+	width: 305px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	
+	font-size: 72px;
+	color: #fff;
+	text-align: left;
+}
+
+.input-wrapper span {
+	width: 45px;
+}
+
+.input-wrapper input {
+	color: #fff;
+	background: none;
+	border: none;
+	width: 260px;
+	border-bottom: 2px solid #fff;
+}
+
+.input-wrapper input:focus {
+	outline: none;
+	text-decoration: none;
+	border-bottom: none;
+}
+
+.input-wrapper input, .input-wrapper span {
+	display: inline-block
+}
+
+
+/* RESULTS */
+
+.color-box {
+	margin: 2px;
+	text-align: left;
+	display: inline-block;
+	padding: 4px;
+	border-radius: 2px;
+}
+
+.results-list {
+	margin: 0;
+	padding: 0;
+}
+
+.results-list li {
+	margin: 0;
+	padding: 0;
+	list-style: none; 
+}
