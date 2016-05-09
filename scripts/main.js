@@ -101,6 +101,7 @@ $('document').ready(function() {
 	var cFormats = ['hex', 'rgb', 'hsl'];
 	var cIndex = 0;
 	var cPrimary = randomColor();
+	var query = true;
 
 	function cContrast(r, g, b) {
 		var brightness;
@@ -120,30 +121,43 @@ $('document').ready(function() {
 		var c1 = validColor( cPrimary[f], f);
 		var c2 = validColor( $('#input').val(), f);
 		
-		for (var i=1; i < c1.length; i++) {
-			if (f = 'hex') {
-				c2[i] = c2[i].toLowerCase();
-				
-				if (c1[i].length == 1) {
-					c1[i] = leftpad(c1[i], 2, c1[i]);
-				}
-				if (c2[i].length == 1) {
-					c2[i] = leftpad(c2[i], 2, c2[i]);
-				}
-			}
-			console.log(c1[i], c2[i], c1[i] == c2[i], 'beep');
-		}
-		
 		$('#submit').animate({
 			top: '60px',
 			opacity: 0
 		}, 250, function() {
-			$('#submit').text('next');
+			if (query) {
+				
+				for (var i=1; i < c1.length; i++) {
+				if (f = 'hex') {
+					c2[i] = c2[i].toLowerCase();
+
+					if (c1[i].length == 1) {
+						c1[i] = leftpad(c1[i], 2, c1[i]);
+					}
+					if (c2[i].length == 1) {
+						c2[i] = leftpad(c2[i], 2, c2[i]);
+					}
+				}
+					console.log(c1[i], c2[i], c1[i] == c2[i], 'beep');
+				}
+				
+				query = false;
+				$('#submit').text('next');
+			} else {
+				cPrimary = randomColor();
+				$('body').css('background-color', cPrimary.hex);
+				cContrast(cPrimary.num[0], cPrimary.num[1], cPrimary.num[2]);
+				$('#input').val('');
+				query = true;
+				$('#submit').text('done');
+			}
 			$('#submit').css('top', '-60px');
 			$('#submit').animate( {
 				top: '0',
 				opacity: 1
-			}, 250);
+			}, 250, function() {
+				$('#input').css('width', (($('#input').val().length+1) * 26+6).toString() + 'px');
+			});
 		});
 	}
 
@@ -166,60 +180,48 @@ $('document').ready(function() {
 		});
 	}
 	
+	function preSubmit(e) {
+		if ($('#input').val().length != 0) {
+			if (validColor($('#input').val(), cFormats[cIndex])) {
+				submit();
+			} else {
+				$('#input')
+					.css('text-decoration', 'line-through')
+					.animate({
+					opacity: 0
+				}, 500, function() {
+					$('#input')
+						.val('')
+						.css({
+						width: '32px',
+						'text-decoration': 'none'
+					});
+					$('#input').animate({
+						opacity: 1
+					}, 500)
+				});
+			}
+    }
+	};
+	
 	//because <input> hates css
 	$('#input').on('keyup', function(e) {
 		var s = $(this).val().length;
-		if (s===0) {
-			$(this).css('width', 32);
-		} else {
-			$(this).css('width', (s+1)*32);
-		};
+		$(this).css('width', (s+1)*26+6);
 	});
 	
-	//key controls
+	//on enter key
 	$('body').keydown(function(e) {
-		switch(e.which) {
-			case 39: // right
-			case 13: // enter
-				if (validColor($('#input').val(), cFormats[cIndex])) {
-							submit();
-						} else {
-							$('#input')
-								.css('text-decoration', 'line-through')
-								.animate({
-								opacity: 0
-							}, 500, function() {
-								$('#input')
-									.val('')
-									.css({
-									width: '0',
-									'text-decoration': 'none'
-								});
-								$('#input').animate({
-									opacity: 1
-								}, 500)
-							});
-						}
-				break;
-				
-			case 38: // up
-        break;
-
-			case 40: // down
-        break;
-
-			default: return; // exit this handler for other keys
-    }
-    e.preventDefault(); // prevent the default action (scroll / move caret)
+		if (e.which == 13) {preSubmit()};
 	});
 	
 	//submit answer
-	$('#submit').on('click', submit)
+	$('#submit').on('click', preSubmit)
 	
 	//color format change
 	$('#format').on('click', changeFormat);
 	
 	//init
 	$('body').css('background-color', cPrimary.hex);
-	cContrast(cPrimary.num[0],cPrimary.num[1],cPrimary.num[2])
+	cContrast(cPrimary.num[0], cPrimary.num[1], cPrimary.num[2])
 });

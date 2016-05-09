@@ -36,6 +36,7 @@ html, body {
 }
 
 #input {
+	width: 32px;
 	background: none;
 	border: none;
 	text-align: center;
