@@ -5,13 +5,15 @@
 	<link href='https://fonts.googleapis.com/css?family=Droid+Sans+Mono' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="styles/normalize.css">
 	<link rel="stylesheet" href="styles/styles.css">
-	<title>Document</title>
+	<title>Hexter</title>
 </head>
 <body>
-	<ul class="results-list" id="results"></ul>
+
+	<div id="c-top" class="color-sample"></div><div id="c-bot" class="color-sample"></div>
 	<div class="input-wrapper">
-		<span>#</span><input id="answer" maxlength="6"  type="text">
+		<button id="format" class="btn color-adjust">hex</button><span class="divider color-adjust">|</span><input size="1" type="text" id="input" class="color-adjust"><span class="divider color-adjust">|</span><button id="submit" class="btn color-adjust">done</button>
 	</div>
+		
 	<script type="text/javascript" src="scripts/jquery-1.12.3.js"></script>
 	<script type="text/livescript" src="scripts/main.js"></script>
 </body>
