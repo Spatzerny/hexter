@@ -29,7 +29,7 @@ function leftpad (str, len, ch) {
   return str;
 }
 
-function validColor(s,f) {
+function validateColor(s,f) {
 	s = s.toString();
 	if (f == 'hex') {
 		if (s.length <= 4) {
@@ -158,8 +158,8 @@ $('document').ready(function() {
 	
 	function preSubmit(e) {
 		if ($('#input').val().length != 0) {
-			if (validColor($('#input').val(), formats[cIndex])) {
-				cPick = validColor($('#input').val(), formats[cIndex])[0];
+			if (validateColor($('#input').val(), formats[cIndex])) {
+				cPick = validateColor($('#input').val(), formats[cIndex])[0];
 				submit(cTrue, cPick, cFormat);
 			} else {
 				$('#input')
@@ -189,7 +189,12 @@ $('document').ready(function() {
 	
 	//on enter key
 	$('body').keydown(function(e) {
-		if (e.which == 13) {preSubmit()};
+		if (e.which == 13) {
+			preSubmit()
+		}
+		else if (e.which == 38 || e.which == 40) {
+			changeFormat();
+		}
 	});
 	
 	//submit answer
