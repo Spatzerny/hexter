@@ -27,6 +27,10 @@ html, body {
 	transition: width 350ms;
 } 
 
+#input:hover {
+	
+}
+
 #input:focus {
 	outline: none;
 }
@@ -71,6 +75,6 @@ html, body {
 
 @keyframes twitch {
 	0%, 100% {transform: translateY(0)}
-	25% {transform: translateY(-1px)}
-	75% {transform: translateY(1px)}
+	25% {transform: translateY(-5px)}
+	75% {transform: translateY(5px)}
 }
