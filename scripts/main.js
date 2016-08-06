@@ -3,6 +3,18 @@ function randomRange(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
+/* just leftpad :P */
+function leftpad (str, len, ch) {
+  str = String(str);
+  var i = -1;
+  if (!ch && ch !== 0) ch = ' ';
+  len = len - str.length;
+  while (++i < len) {
+    str = ch + str;
+  }
+  return str;
+}
+
 /* returns a random object with hex, rgb and hsl color formats (String) as well as array of Array of rgb(Number) */
 /* if provided with r g b arguments - uses those instead of randomising */
 function getColorObject(r,g,b) {
@@ -21,31 +33,48 @@ function getColorObject(r,g,b) {
 	}
 }
 
-/* just leftpad :P */
-function leftpad (str, len, ch) {
-  str = String(str);
-  var i = -1;
-  if (!ch && ch !== 0) ch = ' ';
-  len = len - str.length;
-  while (++i < len) {
-    str = ch + str;
-  }
-  return str;
-}
-
-/* validates and parses a string for an array of values */
-function validateColor(s,f) {
+/* validates and parses a string, returns regex results or false */
+function parseColorInput(s,f) {
+	var regexMatch, rgbVal;
 	s = s.toString();
+
 	if (f == 'hex') {
 		if (s.length <= 4) {
-			return s.match(/^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i);
+			regexMatch = s.match( /^#?([a-f0-9])([a-f0-9])([a-f0-9])$/i );
+			console.log(regexMatch)
+			rgbVal = [
+				parseInt(leftpad(regexMatch[1],2,regexMatch[1]),16),
+				parseInt(leftpad(regexMatch[2],2,regexMatch[2]),16),
+				parseInt(leftpad(regexMatch[2],2,regexMatch[3]),16)
+			];
+			console.log(rgbVal)
+			return(getColorObject(Math.floor(rgbVal[0]),Math.floor(rgbVal[1]),Math.floor(rgbVal[2])));
 		} else {
-			return s.match(/^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i);
+			regexMatch = s.match( /^#?([a-f0-9]{2})([a-f0-9]{2})([a-f0-9]{2})$/i );
+			rgbVal = [
+				parseInt(regexMatch[1]),
+				parseInt(regexMatch[2]),
+				parseInt(regexMatch[3])
+			];
+			return(getColorObject(Math.floor(rgbVal[0]),Math.floor(rgbVal[1]),Math.floor(rgbVal[2])));
 		}
 	} else if (f == 'rgb') {
-		return s.match(/^(?:rgb\()?([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})\)?$/i);
+
+		regexMatch = s.match(/^(?:rgb\()?([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})\)?$/i);
+		rgbVal = [
+			parseInt(regexMatch[1]),
+			parseInt(regexMatch[2]),
+			parseInt(regexMatch[3])
+		];
+		return(getColorObject(Math.floor(rgbVal[0]),Math.floor(rgbVal[1]),Math.floor(rgbVal[2])));
+
 	} else if (f == 'hsl') {
-		return s.match(/^(?:hsl\()?([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})%?(?:,|\s){1,3}([0-9]{1,3})%?\)?$/i);
+
+		regexMatch = s.match(/^(?:hsl\()?([0-9]{1,3})(?:,|\s){1,3}([0-9]{1,3})%?(?:,|\s){1,3}([0-9]{1,3})%?\)?$/i);
+		rgbVal = hslToRgb(parseInt(regexMatch[1])/360,parseInt(regexMatch[2])/100,parseInt(regexMatch[3])/100);
+		return(getColorObject(Math.floor(rgbVal[0]),Math.floor(rgbVal[1]),Math.floor(rgbVal[2])));
+
+		return regexMatch;
 	} else {
 		return false;
 	}
@@ -114,17 +143,14 @@ $('document').ready(function() {
 		brightness = r * 299 + g * 587 + b * 114;
 		brightness = brightness / 255000;
 		if (brightness >= 0.5) {
-			$('.color-adjust').addClass('dark');
-			$('.color-adjust').removeClass('light');
+			$('.color-adjust').addClass('dark').removeClass('light');
 		} else {
-			$('.color-adjust').addClass('light');
-			$('.color-adjust').removeClass('dark');	
+			$('.color-adjust').addClass('light').removeClass('dark');	
 		}
 	}
 
 	/* args: color_true, color_picked, color_format */
 	function submit(c1, c2, f) {
-		console.log(c1,c2,f);
 		
 		$('#submit').animate({
 			/* animate the fadeout of the submit button */
@@ -148,7 +174,6 @@ $('document').ready(function() {
 							c2[i] = leftpad(c2[i], 2, c2[i]);
 						}
 					}
-					console.log(c1[i], c2[i], c1[i] == c2[i], 'beep');
 				}
 				
 				query = false;
@@ -207,11 +232,16 @@ $('document').ready(function() {
 	
 	function preSubmit(e) {
 		if ($('#input').val().length != 0) {
-			if (validateColor($('#input').val(), formats[cIndex])) {
+		console.log(parseColorInput($('#input').val(), formats[cIndex]))
+
+			if (parseColorInput($('#input').val(), formats[cIndex])) {
+
 				/* input correct */
-				cPick = validateColor($('#input').val(), formats[cIndex])[0];
+				cPick = parseColorInput($('#input').val(), formats[cIndex])[0];
 				submit(cTrue, cPick, cFormat);
+
 			} else {
+
 				/* input incorrect */
 				$('#input')
 					.css('text-decoration', 'line-through')
@@ -228,14 +258,18 @@ $('document').ready(function() {
 						opacity: 1
 					}, 500)
 				});
+
 			}
+
     }
 	};
 	
 	//because <input> hates css
 	$('#input').on('keyup', function(e) {
+
 		var s = $(this).val().length;
 		$(this).css('width', (s+1)*26+6);
+
 	});
 	
 	//keyboard events
