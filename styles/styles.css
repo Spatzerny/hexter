@@ -8,16 +8,14 @@ html, body {
 	font-family: 'Droid Sans Mono', sans-serif;
 	background-color: #e1e1e1;
 	font-size: 42px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-flow: column;
+
 }
 
 /*** INPUT ***/
-.input-wrapper {
-	text-align: center;
-	position: relative;
-	height: 60px;
-	top: 50%;
-	transform: translateY(-50%);
-}
 
 #input {
 	width: 32px;
@@ -25,14 +23,12 @@ html, body {
 	border: none;
 	text-align: center;
 	transition: width 350ms;
-} 
-
-#input:hover {
-	
+	animation: pulse 800ms alternate infinite ease-in-out;
 }
 
 #input:focus {
 	outline: none;
+	animation: none;
 }
 
 .divider {
@@ -64,17 +60,13 @@ html, body {
 	color: #333;
 }
 
-#temp {
-	position: absolute;
-	text-align: center;
-	height: 60px;
-	width: 100vw;
-	top: 20%;
-	transform: translateY(-50%);
-}
-
 @keyframes twitch {
 	0%, 100% {transform: translateY(0)}
-	25% {transform: translateY(-5px)}
+	25% {transform: translateY(-3px)}
 	75% {transform: translateY(5px)}
+}
+
+@keyframes pulse {
+	0% {opacity: 1}
+	100% {opacity: 0.1}
 }
