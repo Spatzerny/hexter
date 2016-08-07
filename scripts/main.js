@@ -1,5 +1,6 @@
 /* TODO
 all the 'next' animations and such
+tutorial with a set of colors (red, green, blue, magenta, cyan, black white, pink and such)
 */
 
 /* random number from a range */
@@ -80,9 +81,9 @@ function hslToRgb(h, s, l) {
  *    returns an Object with string and numerical formats of color formats
  **/
 function getColorObject(r, g, b) {
-  r = r ? r : randomRange(0, 255);
-  g = g ? g : randomRange(0, 255);
-  b = b ? b : randomRange(0, 255);
+  if (typeof r == "undefined") { r = randomRange(0, 255) };
+  if (typeof g == "undefined") { g = randomRange(0, 255) };
+  if (typeof b == "undefined") { b = randomRange(0, 255) };
 
   return {
 
