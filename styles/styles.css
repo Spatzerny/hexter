@@ -36,7 +36,6 @@ html, body {
 }
 
 .btn {
-	transition: transform 420ms;
 	position: relative;
 	cursor: default;
 	background: none;
@@ -69,4 +68,22 @@ html, body {
 @keyframes pulse {
 	0% {opacity: 1}
 	100% {opacity: 0.1}
+}
+
+.result-wrapper {
+	width: 100%;
+	font-size: 12px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.c-container {
+	width: 33.33%;
+	display: flex;
+	flex-flow: column wrap;
+	justify-content: space-around;
+	align-items: center;
+	padding-bottom: 20px;
 }
