@@ -183,15 +183,14 @@ $('document').ready(function() {
   var cTrue = getColorObject();
   var cPick;
 
-  function animateSubmit() {
-
+  function animateSubmitButton(text) {
     /* animate the change of the submit button and input */
     $('#submit').animate({
       top: '60px',
       opacity: 0
     }, 250, function() {
       $('#submit')
-        .text('next')
+        .text(text)
         .css('top', '-60px')
         .animate({
           top: '0',
@@ -224,7 +223,7 @@ $('document').ready(function() {
     fillData('.c_diff', colorDiff)
     fillData('.c_true', colorTrue)
 
-    $('#input').val('');
+    clearInput();
   }
 
   function clearInput() {
@@ -267,13 +266,11 @@ $('document').ready(function() {
 
   function validateInput() {
     if ($('#input').val().length !== 0) {
-
-      if (parseColorInput($('#input').val(), formats[cIndex])) {
-
+      cPick = parseColorInput($('#input').val(), formats[cIndex]);
+      if (cPick) {
         /* input correct - submit it */
-        cPick = parseColorInput($('#input').val(), formats[cIndex]);
-        animateSubmit();
-        updateView(colorTrue, colorPick, colorFormat);
+        animateSubmitButton('next');
+        updateView(cTrue, cPick, cFormat);
         query = false;
 
       } else {
@@ -316,8 +313,9 @@ $('document').ready(function() {
       } else {
         $('.color-adjust').addClass('light').removeClass('dark');
       }
-      $('#input').val('');
-      $('#submit').text('done');
+
+      clearInput();
+      animateSubmitButton('done');
 
       query = true;
     }
