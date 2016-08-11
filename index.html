@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,34 +9,23 @@
 	<link rel="stylesheet" href="styles/styles.css">
 	<title>Hexter</title>
 </head>
+
 <body>
 
-	<div class="result-wrapper">
-			<div class="c_true c-container">
-				<p>true</p>
-				<div class="rgb"></div>
-				<div class="hsl"></div>
-				<div class="hex"></div>
-			</div>
-			<div class="c_diff c-container">
-				<p>difference</p>
-				<div class="rgb"></div>
-				<div class="hsl"></div>
-				<div class="hex"></div>
-			</div>
-			<div class="c_pick c-container">
-				<p>pick</p>
-				<div class="rgb"></div>
-				<div class="hsl"></div>
-				<div class="hex"></div>
-			</div>
+	<div class="main_query">
+		<p>There are two main color model categories in our modern world:</p>
+		<p><em>additive</em> and <em>subtractive</em></p>
+		<p>Main <em>subtractive</em> color pallet is CMYK. Along with pantone colors it's a foundation of all commercial print.</p>
+		<p>To continue write in your favourite color below:</p>
+		<input id="color_input" type="text">
+		<button>back(info)</button>
+		<button>button</button>
 	</div>
 
-	<div class="input-wrapper">
-		<button id="format" class="btn color-adjust">hex</button><span class="divider color-adjust">|</span><input placeholder="_" maxlength="20" size="1" type="text" id="input" class="color-adjust"><span class="divider color-adjust">|</span><button id="submit" class="btn color-adjust">done</button>
-	</div>
-		
 	<script type="text/javascript" src="scripts/jquery-1.12.3.js"></script>
-	<script type="text/livescript" src="scripts/main.js"></script>
+	<script type="text/javascript" src="scripts/tinycolor.js"></script>
+	<script type="text/javascript" src="scripts/main.js"></script>
+
 </body>
+
 </html>

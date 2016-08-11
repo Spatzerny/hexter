@@ -1,89 +1,63 @@
+:root {
+	font-size: 10px;
+}
+
 html, body {
-	width: 100%;
 	height: 100%;
-	width: 100vw;
-	height: 100vh;
-	padding: 0;
-	margin: 0;
-	font-family: 'Droid Sans Mono', sans-serif;
-	background-color: #e1e1e1;
-	font-size: 42px;
+}
+
+body {
+	transition: background-color 300ms;
 	display: flex;
-	justify-content: space-around;
 	align-items: center;
-	flex-flow: column;
+	justify-content: center;
 
+	font-family: 'Open Sans', sans-serif;
+
+	perspective: 1000px;
 }
 
-/*** INPUT ***/
-
-#input {
-	width: 32px;
-	background: none;
-	border: none;
-	text-align: center;
-	transition: width 350ms;
-	animation: pulse 800ms alternate infinite ease-in-out;
-}
-
-#input:focus {
-	outline: none;
-	animation: none;
-}
-
-.divider {
-	cursor: default;
-}
-
-.btn {
-	position: relative;
-	cursor: default;
-	background: none;
-	border: none;
-	padding: 0;
-}
-
-.btn:focus {
-	outline: none;
-}
-
-.btn:hover {
-	animation: twitch 400ms;
-}
-
-.light {
-	color: #ccc;
-}
-
-.dark {
-	color: #333;
-}
-
-@keyframes twitch {
-	0%, 100% {transform: translateY(0)}
-	25% {transform: translateY(-3px)}
-	75% {transform: translateY(5px)}
-}
-
-@keyframes pulse {
-	0% {opacity: 1}
-	100% {opacity: 0.1}
-}
-
-.result-wrapper {
-	width: 100%;
-	font-size: 12px;
+.main_query {
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-around;
 	align-items: center;
+	justify-content: space-between;
+
+	width: 24em;
+	color: #333;
+	background: #efefef;
+	padding: 2.2em 1.8em;
+	border-radius: 0.2em;
+
+	box-shadow: 0 0.2em 0.4em rgba(0,0,0,0.2);
+
+	transition: transform 300ms;
 }
 
-.c-container {
-	width: 33.33%;
-	display: flex;
-	flex-flow: column wrap;
-	justify-content: space-around;
-	align-items: center;
-	padding-bottom: 20px;
+.main_query input {
+	font-size: 2.4rem;
+	background: none;
+	color: inherit;
+	width:100%;
+	margin-bottom: 2.4rem;
+	border: none;
+	border-bottom: 0.1rem solid;
+	outline: none;
+}
+
+.main_query button {
+	color: inherit;
+	margin: 0;
+	padding: 0;
+	font-size: 1.4em;
+	background: none;
+	border: 0.1em solid #333;
+	border-radius: 0.2em;
+	padding: 0.3em 0.6em 0.4em 0.6em;
+	text-align: right;
+}
+
+.main_query p {
+	margin-top: 0;
+	font-size: 1.4em;
 }
