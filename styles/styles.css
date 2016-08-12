@@ -17,7 +17,7 @@ body {
 	perspective: 1000px;
 }
 
-.main_query {
+.color_container {
 	display: flex;
 	flex-flow: row wrap;
 	align-items: center;
@@ -32,9 +32,10 @@ body {
 	box-shadow: 0 0.2em 0.4em rgba(0,0,0,0.2);
 
 	transition: transform 300ms;
+	font-size: inherit;
 }
 
-.main_query input {
+.color_container input {
 	font-size: 2.4rem;
 	background: none;
 	color: inherit;
@@ -45,7 +46,7 @@ body {
 	outline: none;
 }
 
-.main_query button {
+.color_container button {
 	color: inherit;
 	margin: 0;
 	padding: 0;
@@ -57,7 +58,19 @@ body {
 	text-align: right;
 }
 
-.main_query p {
+.color_container p {
 	margin-top: 0;
 	font-size: 1.4em;
+}
+
+
+.color_container ul {
+	margin: 0;
+	padding: 0;
+	font-size: inherit;
+}
+
+.color_container li {
+	list-style: none;
+	font-size: inherit;
 }
