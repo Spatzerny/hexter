@@ -22,6 +22,16 @@ $(document).ready(function() {
 				+'<li>B:'+ (c_guess.toRgb().b - c_actual.toRgb().b) +'</li>'
 				+'</ul><p>What\'s the color of the background?</p>'))
 
+			$('.color_container').css({
+				'transform': 'rotateX(270deg)'
+			}, 150);
+
+			setTimeout(function() {
+				$('.color_container').css({
+					'transform': 'rotateX(360deg)'
+				});
+			}, 500)
+
 			c_actual = tinycolor.random()
 			$(this).val('');
 			$('body').css('background-color', c_actual.toHexString())
